@@ -35,8 +35,9 @@ git clone https://github.com/NicKylis/SveltNet.git
 conda env create -f environment.yaml
 ```
 3. For running only the showcase app:
+```sh
 pip install -r app_requirements.txt
-
+```
 Alternatively, you can use the Google Colab if you do not have sufficient hardware.
 
 ## Authors
