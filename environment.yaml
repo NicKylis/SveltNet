@@ -1,4 +1,4 @@
-name: letter_rec_env
+name: sveltnet_env
 channels:
   - conda-forge
   - defaults
