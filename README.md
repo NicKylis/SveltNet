@@ -10,6 +10,8 @@ The model we used has the following architecture:
 
 ![test](res/architecture.png)
 
+The AI model is written in Python using the tensorflow library.<br>
+
 The testing results of the model are:
 
 | Test dataset       | Accuracy    | Loss   | Precision | Recall  |
@@ -19,34 +21,27 @@ The testing results of the model are:
 | EMNIST             | 85.68%      | 1.109  | 88.72%    | 81.63%  |
 | CIFAR10            | 79.94%      | 0.9675 | 89.69%    | 68.22%  |
 
-## Instructions
+## Web showcase
 - This project features an AI model through a web application, available [HERE](https://letter-recognition-1.onrender.com/)
-- The AI model is written in Python using Jupyter Notebook and utilizes CUDA programming lanuage through tensorflow. It can be built both on google colabs or locally.
 
-### Prerequisites (local execution)
-- Tensorflow library installed
-- A compatible NVIDIA GPU
-- UNIX based system (or WSL for windows 10 and 11)
-
-#### Building the model
-
+### Prerequisites (model training environment)
+In order to run the training environment, or run the showcase app you will need to have the required libraries installed. If you want to train the model a modern GPU is strongly recommended. We provide a ready environment tailored for Cuda 11.2 . In order to install the environment follow the next steps:<br>
 1. Clone the repository:
 ```sh
-git clone https://github.com/NicKylis/letter_recognition.git
+git clone https://github.com/NicKylis/SveltNet.git
 ```
+2. Install the environment using:
+```sh
+conda env create -f environment.yaml
+```
+3. For running only the showcase app:
+pip install -r app_requirements.txt
 
-2. Compile and run all shells, using your preferable IDE.
-
-### Prerequisites (cloud execution)
-- An account on google
-- Access to google Colab Pro (optional)
-
-#### Building the model
-1. Open the main.ipynb file
-2. Click on the __Open in Colab__ button on the top left of the file
-3. Navigate to the Execution time (runtime) menu and select Run all (Ctrl+F9)
-
-> **Note**: Remember to adjust the number of epochs to your system's limitations. If you are using google Colabs without Colab Pro access, you might encounter very slow compilation times or even be kicked out from the session mid training. Setting the number of epochs to 10 should be sufficient for more than 96% accuracy.
+Alternatively, you can use the Google Colab if you do not have sufficient hardware.
 
 ## Authors
 Kylintireas Nikolaos, Lourmpakis Evangelos, Toramanidou Christodouli
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
