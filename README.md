@@ -19,9 +19,9 @@ The testing results of the model are:
 | Test dataset       | Accuracy    | Loss   | Precision | Recall  |
 |--------------------|-------------|--------|-----------|---------|
 | MNIST              | 99.63%      | 0.5359 | 99.72%    | 99.47%  |
-| fashion MNIST      | 89.45%      | 0.7564 | 92%       | 86.93%  |
+| Fashion-MNIST      | 89.45%      | 0.7564 | 92%       | 86.93%  |
 | EMNIST             | 85.68%      | 1.109  | 88.72%    | 81.63%  |
-| CIFAR10            | 79.94%      | 0.9675 | 89.69%    | 68.22%  |
+| CIFAR-10            | 79.94%      | 0.9675 | 89.69%    | 68.22%  |
 
 ## Useful information
 - This project features an AI model through a web application, available [HERE](https://letter-recognition-1.onrender.com/)
