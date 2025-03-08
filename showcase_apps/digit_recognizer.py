@@ -5,7 +5,7 @@ import os
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QHBoxLayout, QFileDialog
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QFont
 from PyQt5.QtCore import Qt, QPoint
-from cv2 import cv2 as cv
+import cv2 as cv
 import tensorflow as tf
 
 class DigitRecognizer(QWidget):
@@ -149,7 +149,7 @@ class DigitRecognizer(QWidget):
             img = cv.imread(file_path, cv.IMREAD_GRAYSCALE)
             if img is not None:
                 img_resized = cv.resize(img, (28, 28), interpolation=cv.INTER_AREA)
-                _, img_thresh = cv.threshold(img_resized, 127, 255, cv.THRESH_OTSU | cv.THRESH_BINARY_INV)
+                _, img_thresh = cv.threshold(img_resized, 127, 255, cv.THRESH_OTSU)
 
                 # Normalize and reshape for model input
                 img_array = img_thresh / 255.0
