@@ -1,5 +1,5 @@
 # Sveltnet: An accurate lightweight Sequential CNN model
-The Sveltnet model aims to achieve the competent accuracy figures of common CNN models while being much smaller parameter-wise. By only utilizing a sum of around 100k trainable and non trainable parameters we manage to achieve similar accuracy to the much bigger and now historical [AlexNet model](https://github.com/paniabhisek/AlexNet) with ~57M parameters.<br>
+The Sveltnet model aims to achieve the competent accuracy figures of common CNN models while being much smaller parameter-wise. By only utilizing a summary of around 100k trainable and non trainable parameters we manage to achieve similar accuracy to the much bigger and now historical [AlexNet model](https://github.com/paniabhisek/AlexNet) with ~57M parameters.<br>
 This repository holds the testing results of a model on various known datasets. These include:
 - [The MNIST dataset](https://www.kaggle.com/datasets/hojjatk/mnist-dataset)
 - [The fashion MNIST dataset](https://www.kaggle.com/datasets/zalando-research/fashionmnist)
@@ -14,11 +14,20 @@ The AI model is written in Python using the [TensorFlow library](https://www.ten
 
 ## SveltNet's performance on common datasets 
 
-The testing results of the model are:
+The initial testing results of the example model are:
 
 | Test dataset       | Accuracy    | Loss   | Precision | Recall  |
 |--------------------|-------------|--------|-----------|---------|
 | MNIST              | 99.63%      | 0.5359 | 99.72%    | 99.47%  |
+| Fashion-MNIST      | 89.45%      | 0.7564 | 92%       | 86.93%  |
+| EMNIST             | 85.68%      | 1.1090	| 88.72%	  | 81.63%  |
+| CIFAR-10           | 79.94%      | 0.9675 | 89.69%    | 68.22%  |
+
+The now developed further Sveltnet is all around improved, with slightly less parameters and the following results:
+
+| Test dataset       | Accuracy    | Loss   | Precision | Recall  |
+|--------------------|-------------|--------|-----------|---------|
+| MNIST              | 99.70%      | 0.0143 | 99.70%    | 99.70%  |
 | Fashion-MNIST      | 89.45%      | 0.7564 | 92%       | 86.93%  |
 | EMNIST             | 87.02%      | 0.3503 | 85.40%    | 87.02%  |
 | CIFAR-10           | 79.94%      | 0.9675 | 89.69%    | 68.22%  |
