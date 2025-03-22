@@ -20,8 +20,8 @@ The testing results of the model are:
 |--------------------|-------------|--------|-----------|---------|
 | MNIST              | 99.63%      | 0.5359 | 99.72%    | 99.47%  |
 | Fashion-MNIST      | 89.45%      | 0.7564 | 92%       | 86.93%  |
-| EMNIST             | 85.68%      | 1.109  | 88.72%    | 81.63%  |
-| CIFAR-10            | 79.94%      | 0.9675 | 89.69%    | 68.22%  |
+| EMNIST             | 87.02%      | 0.3503 | 85.40%    | 87.02%  |
+| CIFAR-10           | 79.94%      | 0.9675 | 89.69%    | 68.22%  |
 
 ## Useful information
 - This project features an AI model through a web application, available [HERE](https://letter-recognition-1.onrender.com/)
