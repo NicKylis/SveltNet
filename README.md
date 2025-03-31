@@ -24,7 +24,7 @@ The testing results of the model are:
 | CIFAR-10            | 79.94%      | 0.9675 | 89.69%    | 68.22%  |
 
 ## Useful information
-- This project features an AI model through a web application, available [HERE](https://letter-recognition-1.onrender.com/)
+- This project features an AI model through a web application, available [HERE](https://sveltnet.onrender.com/)
 - Below is given a rough guide on how to run either the training environment or the showcase app, similar to the web application, locally.
 - If you wish to use SveltNet for any project use the citation provided in the Authors section from this repository.
 
