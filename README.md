@@ -10,8 +10,6 @@ The model we used has the following architecture:
 
 ![test](res/architecture.png)
 
-The AI model is written in Python using the [TensorFlow library](https://www.tensorflow.org/).<br>
-
 ## SveltNet's performance on common datasets 
 
 The initial testing results of the example model are:
