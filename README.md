@@ -1,1 +1,0 @@
-# letter_recognition

@@ -1,0 +1,8 @@
+opencv-contrib-python
+flask
+flask-cors
+torch
+torchvision
+gunicorn
+numpy
+Pillow
