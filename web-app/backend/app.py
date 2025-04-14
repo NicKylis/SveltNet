@@ -23,6 +23,32 @@ EMNIST_BYCLASS_LABELS = {
     56: 'u', 57: 'v', 58: 'w', 59: 'x', 60: 'y', 61: 'z'
 }
 
+CIFAR10_LABELS = {
+    0: "airplane",
+    1: "automobile",
+    2: "bird",
+    3: "cat",
+    4: "deer",
+    5: "dog",
+    6: "frog",
+    7: "horse",
+    8: "ship",
+    9: "truck"
+}
+
+FASHION_MNIST_LABELS = {
+    0: "T-shirt/top",
+    1: "Trouser",
+    2: "Pullover",
+    3: "Dress",
+    4: "Coat",
+    5: "Sandal",
+    6: "Shirt",
+    7: "Sneaker",
+    8: "Bag",
+    9: "Ankle boot"
+}
+
 class TAAF(nn.Module):
     def __init__(self, in_features):
         super(TAAF, self).__init__()
@@ -137,17 +163,115 @@ class CNNModel(nn.Module):
         x = self.fc(x)
         return x
 
+class CNNModel_CIFAR10(nn.Module):
+    def __init__(self, num_of_classes=10):
+        super(CNNModel_CIFAR10, self).__init__()
+
+        self.conv1 = nn.Conv2d(3, 16, kernel_size=5, stride=1, padding=2, bias=False)  # 1 input channel
+        self.bn1 = nn.BatchNorm2d(16)
+
+        self.dwconv2 = nn.Conv2d(16, 16, kernel_size=3, padding=1, groups=16, bias=False)
+        self.bn2 = nn.BatchNorm2d(16)
+
+        self.dwconv3 = nn.Conv2d(16, 16, kernel_size=3, padding=1, groups=16, bias=False)
+        self.bn3 = nn.BatchNorm2d(16)
+
+        self.conv4 = nn.Conv2d(16, 32, kernel_size=3, padding=1, bias=False)  # 16 -> 32
+        self.bn4 = nn.BatchNorm2d(32)
+        self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.drop1 = nn.Dropout(0.15)
+
+        self.dwconv5 = nn.Conv2d(32, 32, kernel_size=3, padding=1, groups=32, bias=False)
+        self.bn5 = nn.BatchNorm2d(32)
+
+        self.dwconv6 = nn.Conv2d(32, 32, kernel_size=3, padding=1, groups=32, bias=False)
+        self.bn6 = nn.BatchNorm2d(32)
+
+        self.conv7 = nn.Conv2d(32, 64, kernel_size=3, padding=1, bias=False)  # 32 -> 64
+        self.bn7 = nn.BatchNorm2d(64)
+        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.drop2 = nn.Dropout(0.2)
+
+        self.dwconv8 = nn.Conv2d(64, 64, kernel_size=3, padding=1, groups=64, bias=False)
+        self.bn8 = nn.BatchNorm2d(64)
+
+        self.dwconv9 = nn.Conv2d(64, 64, kernel_size=3, padding=1, groups=64, bias=False)
+        self.bn9 = nn.BatchNorm2d(64)
+
+        self.conv10 = nn.Conv2d(64, 64, kernel_size=3, padding=1, bias=False)
+        self.bn10 = nn.BatchNorm2d(64)
+        self.pool3 = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.drop3 = nn.Dropout(0.2)
+
+        self.dwconv11 = nn.Conv2d(64, 64, kernel_size=3, padding=1, groups=64, bias=False)
+        self.bn11 = nn.BatchNorm2d(64)
+
+        self.dwconv12 = nn.Conv2d(64, 64, kernel_size=3, padding=1, groups=64, bias=False)
+        self.bn12 = nn.BatchNorm2d(64)
+
+        self.conv13 = nn.Conv2d(64, 64, kernel_size=3, padding=1, bias=False)
+        self.bn13 = nn.BatchNorm2d(64)
+        self.pool4 = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.drop4 = nn.Dropout(0.2)
+
+        self.dwconv14 = nn.Conv2d(64, 64, kernel_size=3, padding=1, groups=64, bias=False)
+        self.bn14 = nn.BatchNorm2d(64)
+
+        self.dwconv15 = nn.Conv2d(64, 64, kernel_size=3, padding=1, groups=64, bias=False)
+        self.bn15 = nn.BatchNorm2d(64)
+
+        self.global_pool = nn.AdaptiveAvgPool2d(1)
+        self.drop5 = nn.Dropout(0.25)
+        self.fc = nn.Linear(64, num_of_classes)
+
+        self.taaf = TAAF(256)
+
+    def forward(self, x):
+        x = self.taaf(self.bn1(self.conv1(x)))
+        x = self.taaf(self.bn2(self.dwconv2(x)))
+        x = self.taaf(self.bn3(self.dwconv3(x)))
+
+        x = self.taaf(self.bn4(self.conv4(x)))
+        x = self.pool1(x)
+        x = self.drop1(x)
+
+        x = self.taaf(self.bn5(self.dwconv5(x)))
+        x = self.taaf(self.bn6(self.dwconv6(x)))
+
+        x = self.taaf(self.bn7(self.conv7(x)))
+        x = self.pool2(x)
+        x = self.drop2(x)
+
+        x = self.taaf(self.bn8(self.dwconv8(x)))
+        x = self.taaf(self.bn9(self.dwconv9(x)))
+
+        x = self.taaf(self.bn10(self.conv10(x)))
+        x = self.pool3(x)
+        x = self.drop3(x)
+
+        x = self.taaf(self.bn11(self.dwconv11(x)))
+        x = self.taaf(self.bn12(self.dwconv12(x)))
+
+        x = self.taaf(self.bn13(self.conv13(x)))
+        x = self.pool4(x)
+        x = self.drop4(x)
+
+        x = self.taaf(self.bn14(self.dwconv14(x)))
+        x = self.taaf(self.bn15(self.dwconv15(x)))
+
+        x = self.global_pool(x)
+        x = torch.flatten(x, 1)
+        x = self.drop5(x)
+        x = self.fc(x)
+        return x
+
 transform = transforms.ToTensor()
 
-# model = ''
+model = ''
 app = Flask(__name__, static_folder="dist", static_url_path="/")
 # Explicitly configure CORS
 # CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 CORS(app)
-
-# # Load model inside function to prevent startup delays
-# def load_model_on_demand():
-#     return model
 
 # Handle preflight OPTIONS request
 @app.route('/predict', methods=['OPTIONS'])
@@ -161,21 +285,32 @@ def handle_options():
 @app.route('/predict', methods=['POST'])
 @cross_origin()
 def predict():
-    model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'emnist.pth')
-    print(model_path)
-    model = load_model(model_path)
+    model_path_mnist = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'mnist.pth')
+    model_path_emnist = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'emnist.pth')
+    model_path_fashion_mnist = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fashion_mnist.pth')
+    model_path_cifar10 = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cifar10.pth')
+    model_mnist = load_model(model_path_mnist, 10)
+    model_fashion_mnist = load_model(model_path_fashion_mnist, 10)
+    model_cifar10 = load_model_cifar(model_path_cifar10)
+    model_emnist = load_model(model_path_emnist, 62)
     try:
         data = request.get_json()
         image_data = data['image']
+        model_data = data['model']
 
         # Convert base64 to image
         img_str = image_data.split(',')[1]
         img_data = base64.b64decode(img_str)
-        img = Image.open(BytesIO(img_data)).convert("L")
-        img = img.resize((28, 28))
+        if model_data == "cifar-10":
+            img = Image.open(BytesIO(img_data)).convert("RGB")
+            img = img.resize((32, 32))
+        else: 
+            img = Image.open(BytesIO(img_data)).convert("L")
+            img = img.resize((28, 28))
         img_array = np.array(img)
 
-        _, img_array = cv2.threshold(img_array, 127, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
+        if model_data != "cifar-10":
+            _, img_array = cv2.threshold(img_array, 127, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
 
         (h, w) = img_array.shape[:2]
         center = (w // 2, h // 2)  # Center of the image
@@ -185,8 +320,9 @@ def predict():
 
             # Create rotation matrix
         rotation_matrix = cv2.getRotationMatrix2D(center, angle, 1.0)  # 1.0 is the scale factor
+        if model_data == "emnist":
+            img_array = cv2.flip(img_array,1)
 
-        img_array = cv2.flip(img_array,1)
         # Apply rotation
         img_array = cv2.warpAffine(img_array, rotation_matrix, (w, h))
 
@@ -199,15 +335,40 @@ def predict():
         # Load model inside function
         # model = load_model_on_demand()
         with torch.no_grad():
-            prediction = model(img_array)
-            #prediction = model.predict(img_array)
-            predicted_class = int(np.argmax(prediction))
-
-        return jsonify({'prediction': EMNIST_BYCLASS_LABELS[predicted_class]})
+            if(model_data == "mnist"):
+                prediction = model_mnist(img_array)
+                predicted_class = int(np.argmax(prediction))
+                return jsonify({'prediction': predicted_class})
+            elif(model_data == "fashion-mnist"):
+                prediction = model_fashion_mnist(img_array)
+                predicted_class = int(np.argmax(prediction))
+                return jsonify({'prediction': FASHION_MNIST_LABELS[predicted_class]})
+            elif(model_data == "cifar-10"):
+                prediction = model_cifar10(img_array)
+                predicted_class = int(np.argmax(prediction))
+                return jsonify({'prediction': CIFAR10_LABELS[predicted_class]})
+            else:
+                prediction = model_emnist(img_array)
+                predicted_class = int(np.argmax(prediction))
+                return jsonify({'prediction': EMNIST_BYCLASS_LABELS[predicted_class]})
 
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({'error': 'Internal Server Error'}), 500
+    
+def load_model(path, num_of_classes):
+    model = CNNModel(num_of_classes=num_of_classes)
+    checkpoint = torch.load(path, map_location=torch.device('cpu'))
+    model.load_state_dict(checkpoint['model_state_dict'])
+    model.eval()
+    return model
+
+def load_model_cifar(path):
+    model = CNNModel_CIFAR10()
+    checkpoint = torch.load(path, map_location=torch.device('cpu'))
+    model.load_state_dict(checkpoint['model_state_dict'])
+    model.eval()
+    return model
 
 # Ensure CORS headers are always set
 @app.after_request
@@ -228,13 +389,6 @@ def serve_static(path):
     if os.path.exists(file_path):
         return send_from_directory(app.static_folder, path)
     return send_from_directory(app.static_folder, 'index.html')
-
-def load_model(path):
-    model = CNNModel()
-    checkpoint = torch.load(path, map_location=torch.device('cpu'))
-    model.load_state_dict(checkpoint['model_state_dict'])
-    model.eval()
-    return model
 
 if __name__ == '__main__':
     app.run(debug=True)

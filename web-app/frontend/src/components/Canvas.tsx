@@ -1,7 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { RefreshCw } from "lucide-react";
 
-export const Canvas = () => {
+export type ModelType = "mnist" | "emnist" | "fashion-mnist" | "cifar-10";
+
+interface CanvasProps {
+  selectedModel: ModelType;
+}
+
+export const Canvas = ({ selectedModel }: CanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [isPredicting, setIsPredicting] = useState(false);
@@ -136,6 +142,7 @@ export const Canvas = () => {
   const handlePredict = async () => {
     setIsPredicting(true);
     setPrediction(null);
+    console.log(`Predicting with model: ${selectedModel}`);
     // Capture the image from the canvas
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -151,6 +158,7 @@ export const Canvas = () => {
         },
         body: JSON.stringify({
           image: dataURL, // Send the base64 string in JSON
+          model: selectedModel, // Include the selected model type
         }),
       });
 
